@@ -26,9 +26,7 @@ public class NotificationsActivity extends AppCompatActivity {
     private NotificationAdapter adapter;
     private List<NotificationModel> notificationList = new ArrayList<>();
 
-    // ─────────────────────────────────────────────
-    // Lifecycle
-    // ─────────────────────────────────────────────
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +50,7 @@ public class NotificationsActivity extends AppCompatActivity {
         return true;
     }
 
-    // ─────────────────────────────────────────────
-    // Setup
-    // ─────────────────────────────────────────────
+
 
     private void setupToolbar() {
         setSupportActionBar(binding.toolbar);
@@ -71,9 +67,7 @@ public class NotificationsActivity extends AppCompatActivity {
         binding.rvNotifications.setAdapter(adapter);
     }
 
-    // ─────────────────────────────────────────────
-    // Load Notifications from Firestore
-    // ─────────────────────────────────────────────
+
 
     private void loadNotifications() {
         binding.progressBar.setVisibility(View.VISIBLE);
@@ -112,9 +106,7 @@ public class NotificationsActivity extends AppCompatActivity {
                 });
     }
 
-    // ─────────────────────────────────────────────
-    // Clear All
-    // ─────────────────────────────────────────────
+
 
     private void clearAllNotifications() {
         if (notificationList.isEmpty()) {
@@ -145,9 +137,7 @@ public class NotificationsActivity extends AppCompatActivity {
                                 Toast.LENGTH_SHORT).show());
     }
 
-    // ─────────────────────────────────────────────
-    // Empty State
-    // ─────────────────────────────────────────────
+
 
     private void showEmpty() {
         binding.tvEmpty.setVisibility(View.VISIBLE);

@@ -38,9 +38,6 @@ public class CheckoutActivity extends AppCompatActivity {
     private List<CartItem> cartItems = new ArrayList<>();
     private double totalAmount = 0;
 
-    // ─────────────────────────────────────────────
-    // Lifecycle
-    // ─────────────────────────────────────────────
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +66,6 @@ public class CheckoutActivity extends AppCompatActivity {
         return true;
     }
 
-    // ─────────────────────────────────────────────
-    // Load Cart
-    // ─────────────────────────────────────────────
 
     private void loadCartAndTotal() {
         cartDb.cartDao().getAllItems().observe(this, items -> {
@@ -93,9 +87,6 @@ public class CheckoutActivity extends AppCompatActivity {
         });
     }
 
-    // ─────────────────────────────────────────────
-    // Validation
-    // ─────────────────────────────────────────────
 
     private boolean validateDeliveryAddress() {
         String addr = binding.etDeliveryAddress.getText().toString().trim();
@@ -108,9 +99,6 @@ public class CheckoutActivity extends AppCompatActivity {
         return true;
     }
 
-    // ─────────────────────────────────────────────
-    // PayHere Payment — Official v3 SDK
-    // ─────────────────────────────────────────────
 
     private void initiatePayment() {
         String orderId = "ORD-" + System.currentTimeMillis();
@@ -157,7 +145,7 @@ public class CheckoutActivity extends AppCompatActivity {
             ));
         }
 
-        // Set sandbox mode
+        // Set sandbox
         PHConfigs.setBaseUrl(PHConfigs.SANDBOX_URL);
 
         // Launch PayHere payment screen
@@ -166,9 +154,7 @@ public class CheckoutActivity extends AppCompatActivity {
         startActivityForResult(intent, PAYHERE_REQUEST);
     }
 
-    // ─────────────────────────────────────────────
-    // Payment Result
-    // ─────────────────────────────────────────────
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -200,9 +186,7 @@ public class CheckoutActivity extends AppCompatActivity {
         }
     }
 
-    // ─────────────────────────────────────────────
-    // Save Order to Firestore
-    // ─────────────────────────────────────────────
+
 
     private void saveOrderToFirestore(String paymentId, String status) {
         String orderId = "ORD-" + System.currentTimeMillis();

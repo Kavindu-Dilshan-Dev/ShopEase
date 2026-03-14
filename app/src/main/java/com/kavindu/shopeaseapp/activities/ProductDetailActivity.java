@@ -22,9 +22,6 @@ public class ProductDetailActivity extends AppCompatActivity {
     private CartDatabase cartDb;
     private int quantity = 1;
 
-    // ─────────────────────────────────────────────
-    // Lifecycle
-    // ─────────────────────────────────────────────
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +52,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         return true;
     }
 
-    // ─────────────────────────────────────────────
-    // Setup
-    // ─────────────────────────────────────────────
+
 
     private void setupToolbar() {
         setSupportActionBar(binding.toolbar);
@@ -93,9 +88,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
     }
 
-    // ─────────────────────────────────────────────
-    // Quantity Controls
-    // ─────────────────────────────────────────────
+
 
     private void setupQuantityControls() {
         binding.btnIncrease.setOnClickListener(v -> {
@@ -131,9 +124,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
     }
 
-    // ─────────────────────────────────────────────
-    // Cart Logic
-    // ─────────────────────────────────────────────
+
 
     private void addToCart() {
         Executors.newSingleThreadExecutor().execute(() -> {

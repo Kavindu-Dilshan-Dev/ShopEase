@@ -355,8 +355,8 @@ MainActivity (BottomNav)
 ## 👨‍💻 Author
 
 **Kavindu**
-- GitHub: [@YOUR_USERNAME](https://github.com/YOUR_USERNAME)
-- Email: your@email.com
+- GitHub: https://github.com/Kavindu-Dilshan-Dev
+- Email: kavindu4543@gmail.com
 
 ---
 

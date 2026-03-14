@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/purple_700"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="Sensors &amp; Telephony"
+        app:titleTextColor="@color/white"/>
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="16dp">
+
+            <!-- Live Sensor Readings -->
+            <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp" app:cardElevation="4dp">
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="16dp">
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Live Sensor Data" android:textSize="16sp" android:textStyle="bold"/>
+
+                    <TextView android:id="@+id/tvSensorStatus" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_marginTop="8dp"
+                        android:text="Monitoring..." android:textColor="@color/green_success"/>
+                    <TextView android:id="@+id/tvAccel" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_marginTop="4dp"
+                        android:text="📐 Accelerometer: --"/>
+                    <TextView android:id="@+id/tvSteps" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_marginTop="4dp"
+                        android:text="👟 Steps: --"/>
+                    <TextView android:id="@+id/tvLight" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_marginTop="4dp"
+                        android:text="💡 Light: --"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Telephony -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="📞 Telephony" android:textSize="18sp" android:textStyle="bold"/>
+
+            <TextView android:id="@+id/tvNetworkOperator"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" android:text="Network: --"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:layout_marginTop="12dp">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCallSupport"
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:layout_marginEnd="8dp"
+                    android:text="📞 Call Support"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSmsSupport"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:layout_marginStart="8dp"
+                    android:text="💬 SMS Support"/>
+            </LinearLayout>
+
+            <!-- Advanced: Chip Group Filter -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="🔖 Advanced Components – Filter" android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:selectionRequired="false"
+                app:singleSelection="false">
+
+                <com.google.android.material.chip.Chip android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="Electronics"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"/>
+                <com.google.android.material.chip.Chip android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="Clothing"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"/>
+                <com.google.android.material.chip.Chip android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="Food"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"/>
+                <com.google.android.material.chip.Chip android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="Books"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"/>
+                <com.google.android.material.chip.Chip android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="Sports"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"/>
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- Available Sensors List -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="📱 Device Sensors" android:textSize="18sp" android:textStyle="bold"/>
+
+            <TextView android:id="@+id/tvSensorList"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" android:textSize="12sp"
+                android:fontFamily="monospace" android:layout_marginBottom="32dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

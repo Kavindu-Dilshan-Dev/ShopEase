@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopEase Admin — Push Notifications</title>
+  <link rel="stylesheet" href="../css/dashboard.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <!-- Sidebar (same as dashboard) -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <svg viewBox="0 0 40 40" fill="none" width="32"><rect width="40" height="40" rx="10" fill="#FF6B35"/><path d="M10 14h20M10 20h14M10 26h18" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="28" cy="26" r="4" fill="#fff"/></svg>
+      <span>ShopEase</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>Dashboard</a>
+      <a href="orders.html" class="nav-item"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3z"/></svg>Orders<span class="nav-badge">12</span></a>
+      <a href="products.html" class="nav-item"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4z" clip-rule="evenodd"/></svg>Products</a>
+      <a href="users.html" class="nav-item"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>Users</a>
+      <a href="notifications.html" class="nav-item active"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>Push Notifications</a>
+      <a href="analytics.html" class="nav-item"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11 4a1 1 0 10-2 0v4a1 1 0 102 0V7zm-3 1a1 1 0 10-2 0v3a1 1 0 102 0V8zM8 9a1 1 0 00-2 0v2a1 1 0 102 0V9z" clip-rule="evenodd"/></svg>Analytics</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="admin-avatar">
+        <div class="avatar-ring">A</div>
+        <div><p class="admin-name" id="adminName">Admin</p><p class="admin-role">Super Admin</p></div>
+      </div>
+      <button class="btn-logout" onclick="logout()"><svg viewBox="0 0 20 20" fill="currentColor" width="18"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/></svg></button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="sidebar-toggle" onclick="toggleSidebar()"><svg viewBox="0 0 20 20" fill="currentColor" width="20"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg></button>
+        <div>
+          <h1 class="page-title">Push Notifications</h1>
+          <p class="page-sub">Send real-time alerts to ShopEase app users</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="notif-stats-mini">
+          <span class="nsm-item"><span class="nsm-dot green"></span><span id="sentCount">0</span> Sent today</span>
+          <span class="nsm-item"><span class="nsm-dot orange"></span><span id="pendingCount">0</span> Pending</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <!-- Toast area -->
+      <div id="toastArea" class="toast-area"></div>
+
+      <div class="notif-layout">
+        <!-- Compose Panel -->
+        <div class="compose-panel">
+          <div class="compose-header">
+            <h3>Compose Notification</h3>
+            <span class="compose-badge">Firebase FCM</span>
+          </div>
+
+          <!-- Type Tabs -->
+          <div class="type-tabs">
+            <button class="type-tab active" onclick="setType('general',this)">
+              📢 General
+            </button>
+            <button class="type-tab" onclick="setType('order',this)">
+              📦 Order Update
+            </button>
+            <button class="type-tab" onclick="setType('promo',this)">
+              🎁 Promo
+            </button>
+            <button class="type-tab" onclick="setType('alert',this)">
+              🚨 Alert
+            </button>
+          </div>
+
+          <div class="compose-form">
+            <!-- Target -->
+            <div class="form-group">
+              <label class="form-label">Target Audience</label>
+              <div class="target-grid">
+                <label class="target-opt active-opt" onclick="setTarget('all',this)">
+                  <input type="radio" name="target" value="all" checked hidden/>
+                  <span class="target-icon">👥</span>
+                  <span>All Users</span>
+                  <span class="target-count">3,841</span>
+                </label>
+                <label class="target-opt" onclick="setTarget('android',this)">
+                  <input type="radio" name="target" value="android" hidden/>
+                  <span class="target-icon">🤖</span>
+                  <span>Android</span>
+                  <span class="target-count">2,634</span>
+                </label>
+                <label class="target-opt" onclick="setTarget('premium',this)">
+                  <input type="radio" name="target" value="premium" hidden/>
+                  <span class="target-icon">⭐</span>
+                  <span>Premium</span>
+                  <span class="target-count">892</span>
+                </label>
+                <label class="target-opt" onclick="setTarget('inactive',this)">
+                  <input type="radio" name="target" value="inactive" hidden/>
+                  <span class="target-icon">😴</span>
+                  <span>Inactive</span>
+                  <span class="target-count">315</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Title -->
+            <div class="form-group">
+              <label class="form-label">Notification Title <span class="required">*</span></label>
+              <input type="text" id="notifTitle" class="form-input"
+                placeholder="e.g. Weekend Sale is LIVE! 🎉" maxlength="65"/>
+              <div class="char-count"><span id="titleCount">0</span>/65</div>
+            </div>
+
+            <!-- Body -->
+            <div class="form-group">
+              <label class="form-label">Message Body <span class="required">*</span></label>
+              <textarea id="notifBody" class="form-input form-textarea"
+                placeholder="Write your notification message here..." maxlength="200" rows="4"></textarea>
+              <div class="char-count"><span id="bodyCount">0</span>/200</div>
+            </div>
+
+            <!-- Image URL (optional) -->
+            <div class="form-group">
+              <label class="form-label">Image URL <span class="optional">(optional)</span></label>
+              <input type="url" id="notifImage" class="form-input"
+                placeholder="https://example.com/image.jpg"/>
+            </div>
+
+            <!-- Deep Link -->
+            <div class="form-group">
+              <label class="form-label">Deep Link / Action <span class="optional">(optional)</span></label>
+              <select id="notifAction" class="form-input form-select">
+                <option value="">— No action —</option>
+                <option value="HOME">Open Home Screen</option>
+                <option value="ORDERS">Open My Orders</option>
+                <option value="CART">Open Cart</option>
+                <option value="PROFILE">Open Profile</option>
+                <option value="PROMO">Open Promotions</option>
+                <option value="MAP">Open Store Locator</option>
+              </select>
+            </div>
+
+            <!-- Schedule -->
+            <div class="form-group">
+              <label class="form-label">Schedule</label>
+              <div class="schedule-toggle">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="scheduleToggle" onchange="toggleSchedule()"/>
+                  <span class="toggle-track"></span>
+                </label>
+                <span>Send at specific time</span>
+              </div>
+              <div id="schedulePicker" style="display:none; margin-top:12px;">
+                <input type="datetime-local" id="scheduleTime" class="form-input"/>
+              </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="notif-preview-wrap">
+              <p class="preview-label">Preview</p>
+              <div class="notif-preview" id="notifPreview">
+                <div class="preview-phone">
+                  <div class="preview-notif">
+                    <div class="preview-icon">
+                      <svg viewBox="0 0 40 40" fill="none" width="28"><rect width="40" height="40" rx="8" fill="#FF6B35"/><path d="M10 14h20M10 20h14" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="preview-content">
+                      <p class="preview-title" id="prevTitle">Notification Title</p>
+                      <p class="preview-body" id="prevBody">Your message will appear here...</p>
+                    </div>
+                    <span class="preview-time">now</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Send Button -->
+            <button class="btn-send" id="btnSend" onclick="sendNotification()">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/></svg>
+              <span id="sendBtnText">Send Notification</span>
+            </button>
+
+            <!-- Templates -->
+            <div class="templates-section">
+              <p class="tmpl-label">Quick Templates</p>
+              <div class="templates-grid">
+                <button class="tmpl-btn" onclick="applyTemplate('sale')">🔥 Flash Sale</button>
+                <button class="tmpl-btn" onclick="applyTemplate('order')">✅ Order Confirmed</button>
+                <button class="tmpl-btn" onclick="applyTemplate('shipped')">🚚 Order Shipped</button>
+                <button class="tmpl-btn" onclick="applyTemplate('welcome')">👋 Welcome Back</button>
+                <button class="tmpl-btn" onclick="applyTemplate('review')">⭐ Rate Us</button>
+                <button class="tmpl-btn" onclick="applyTemplate('promo')">🎁 Special Offer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- History Panel -->
+        <div class="history-panel">
+          <div class="compose-header">
+            <h3>Notification History</h3>
+            <button class="btn-clear-hist" onclick="clearHistory()">Clear All</button>
+          </div>
+          <div class="hist-filters">
+            <button class="hf-btn active" onclick="filterHistory('all',this)">All</button>
+            <button class="hf-btn" onclick="filterHistory('sent',this)">Sent</button>
+            <button class="hf-btn" onclick="filterHistory('scheduled',this)">Scheduled</button>
+          </div>
+          <div class="history-list" id="historyList">
+            <div class="hist-empty">
+              <svg viewBox="0 0 24 24" fill="none" width="48"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <p>No notifications sent yet</p>
+              <span>Your sent notifications will appear here</span>
+            </div>
+          </div>
+
+          <!-- Stats Card -->
+          <div class="notif-stats-card">
+            <h4>This Month</h4>
+            <div class="nsc-grid">
+              <div class="nsc-item">
+                <span class="nsc-val" id="statSent">0</span>
+                <span class="nsc-label">Sent</span>
+              </div>
+              <div class="nsc-item">
+                <span class="nsc-val" id="statDelivered">0</span>
+                <span class="nsc-label">Delivered</span>
+              </div>
+              <div class="nsc-item">
+                <span class="nsc-val" id="statOpened">0%</span>
+                <span class="nsc-label">Open Rate</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/auth-guard.js"></script>
+  <script src="../js/notifications.js"></script>
+</body>
+</html>

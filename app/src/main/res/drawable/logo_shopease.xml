@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="160dp"
+    android:height="160dp"
+    android:viewportWidth="160"
+    android:viewportHeight="160">
+
+    <!-- ── Outer Circle Shadow Layer ── -->
+    <path
+        android:fillColor="#1A000000"
+        android:pathData="M80,158 C123.078,158 158,123.078 158,80 C158,36.922 123.078,2 80,2 C36.922,2 2,36.922 2,80 C2,123.078 36.922,158 80,158 Z"/>
+
+    <!-- ── Main Background Circle (Purple Gradient via layers) ── -->
+    <path
+        android:fillColor="#6D28D9"
+        android:pathData="M80,156 C122.079,156 156,122.079 156,80 C156,37.921 122.079,4 80,4 C37.921,4 4,37.921 4,80 C4,122.079 37.921,156 80,156 Z"/>
+
+    <!-- ── Inner darker bottom half ── -->
+    <path
+        android:fillColor="#4C1D95"
+        android:pathData="M4,80 C4,122.079 37.921,156 80,156 C122.079,156 156,122.079 156,80 Z"/>
+
+    <!-- ── Top shine highlight ── -->
+    <path
+        android:fillColor="#33FFFFFF"
+        android:pathData="M80,4 C37.921,4 4,37.921 4,80 C20,50 50,20 80,4 C110,20 140,50 156,80 C156,37.921 122.079,4 80,4 Z"/>
+
+    <!-- ── Shopping Bag Handle ── -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="7"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M52,82 C52,60 108,60 108,82"/>
+
+    <!-- ── Bag Body ── -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M44,80 L116,80 Q122,80 122,86 L122,128 Q122,134 116,134 L44,134 Q38,134 38,128 L38,86 Q38,80 44,80 Z"/>
+
+    <!-- ── Bag Lines (representing items) ── -->
+    <!-- Line 1 -->
+    <path
+        android:fillColor="#7C3AED"
+        android:pathData="M50,97 L110,97 Q112,97 112,99 L112,102 Q112,104 110,104 L50,104 Q48,104 48,102 L48,99 Q48,97 50,97 Z"/>
+
+    <!-- Line 2 -->
+    <path
+        android:fillColor="#7C3AED"
+        android:fillAlpha="0.7"
+        android:pathData="M50,109 L95,109 Q97,109 97,111 L97,114 Q97,116 95,116 L50,116 Q48,116 48,114 L48,111 Q48,109 50,109 Z"/>
+
+    <!-- Line 3 -->
+    <path
+        android:fillColor="#7C3AED"
+        android:fillAlpha="0.5"
+        android:pathData="M50,121 L100,121 Q102,121 102,123 L102,126 Q102,128 100,128 L50,128 Q48,128 48,126 L48,123 Q48,121 50,121 Z"/>
+
+    <!-- ── Bag Bottom Wheels ── -->
+    <path
+        android:fillColor="#C4B5FD"
+        android:pathData="M50,134 m-5,0 a5,5 0,1 0,10 0 a5,5 0,1 0,-10 0"/>
+
+    <path
+        android:fillColor="#C4B5FD"
+        android:pathData="M110,134 m-5,0 a5,5 0,1 0,10 0 a5,5 0,1 0,-10 0"/>
+
+    <!-- ── Price Tag (top right accent) ── -->
+    <!-- Tag body -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M108,38 L128,38 Q133,38 133,43 L133,56 Q133,61 128,61 L108,61 Q103,61 103,56 L103,43 Q103,38 108,38 Z"/>
+    <!-- Tag hole -->
+    <path
+        android:fillColor="#6D28D9"
+        android:pathData="M108,49.5 m-3,0 a3,3 0,1 0,6 0 a3,3 0,1 0,-6 0"/>
+    <!-- Tag line -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.9"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M114,45 L129,45"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.6"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M114,51 L125,51"/>
+
+    <!-- ── Green Sparkle Star (top right) ── -->
+    <path
+        android:fillColor="#34D399"
+        android:pathData="M130,22 L132.5,29.5 L140,32 L132.5,34.5 L130,42 L127.5,34.5 L120,32 L127.5,29.5 Z"/>
+
+    <!-- ── Small Amber Sparkle (left) ── -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M28,58 L29.5,62.5 L34,64 L29.5,65.5 L28,70 L26.5,65.5 L22,64 L26.5,62.5 Z"/>
+
+    <!-- ── Tiny White Sparkle (bottom right) ── -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.7"
+        android:pathData="M125,110 L126,113 L129,114 L126,115 L125,118 L124,115 L121,114 L124,113 Z"/>
+
+    <!-- ── Outer Ring ── -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#A78BFA"
+        android:strokeWidth="1.5"
+        android:pathData="M80,156 C122.079,156 156,122.079 156,80 C156,37.921 122.079,4 80,4 C37.921,4 4,37.921 4,80 C4,122.079 37.921,156 80,156 Z"/>
+
+</vector>

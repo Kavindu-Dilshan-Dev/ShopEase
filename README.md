@@ -11,12 +11,6 @@ A full-featured Android mobile commerce application built with **Java 17** and *
 
 ---
 
-## 📱 Screenshots
-
-> Add your screenshots here after running the app.
-
----
-
 ## ✨ Features
 
 | Feature | Description |

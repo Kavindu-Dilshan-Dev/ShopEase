@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopEase Admin — Users</title>
+  <link rel="stylesheet" href="../css/dashboard.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="20">
+            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110
+              2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1
+              0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0
+              01-1-1z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+        <div>
+          <h1 class="page-title">Users</h1>
+          <p class="page-sub">
+            Registered users from the Android app
+          </p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <input type="text" class="search-input" id="userSearch"
+          placeholder="Search by name or email…"
+          oninput="filterUsers()"/>
+        <button class="icon-btn" onclick="loadUsers()" title="Refresh">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="18">
+            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002
+              7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0
+              005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008
+              9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0
+              110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0
+              01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div id="toastArea" class="toast-area"></div>
+      <div class="table-card" style="margin-top:0">
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Joined</th>
+              </tr>
+            </thead>
+            <tbody id="usersBody">
+              <tr>
+                <td colspan="5"
+                  style="text-align:center;
+                         color:var(--muted);padding:32px">
+                  🔥 Loading from Firebase…
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-footer">
+          <span id="userCount">Loading…</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/auth-guard.js"></script>
+  <script src="../js/users.js"></script>
+</body>
+</html>

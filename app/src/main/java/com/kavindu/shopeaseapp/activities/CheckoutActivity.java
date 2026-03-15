@@ -111,7 +111,8 @@ public class CheckoutActivity extends AppCompatActivity {
 
         // Build request
         InitRequest req = new InitRequest();
-        req.setMerchantId("1228494");               // sandbox merchant ID
+        req.setMerchantId("1225785");    // ← replace this
+        req.setMerchantSecret("Mzc0MTE1ODQ1MzE4MzczMzE5NDQxMTU4MDk4Njg1MzM1NDQ3NTEwNg==");               // sandbox merchant ID
         req.setCurrency("LKR");
         req.setAmount(totalAmount);
         req.setOrderId(orderId);
@@ -155,7 +156,6 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -185,7 +185,6 @@ public class CheckoutActivity extends AppCompatActivity {
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         }
     }
-
 
 
     private void saveOrderToFirestore(String paymentId, String status) {

@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.kavindu.shopeaseapp" />
+                  <option name="mobileSdkAppId" value="1:1020611543958:android:b14b2a96fa26ae57b953b7" />
+                  <option name="projectId" value="shopease-4f4b8" />
+                  <option name="projectNumber" value="1020611543958" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopEase Admin — Notifications</title>
+  <link rel="stylesheet" href="../css/dashboard.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="20">
+            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110
+              2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1
+              0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0
+              01-1-1z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+        <div>
+          <h1 class="page-title">Push Notifications</h1>
+          <p class="page-sub">
+            Send FCM push notifications to ShopEase Android app users
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div id="toastArea" class="toast-area"></div>
+
+      <div class="notif-layout">
+
+        <!-- ── Compose Panel ── -->
+        <div class="compose-panel">
+          <div class="compose-header">
+            <h3>Compose Notification</h3>
+            <span class="compose-badge">FCM + Firestore</span>
+          </div>
+
+          <!-- FCM Server Key -->
+          <div style="background:rgba(255,107,53,.08);
+                      border:1px solid rgba(255,107,53,.2);
+                      border-radius:12px;padding:14px;
+                      margin-bottom:20px">
+            <p style="font-size:13px;font-weight:600;
+                      color:var(--accent);margin-bottom:8px">
+              ⚙️ FCM Server Key
+              <span style="font-weight:400;color:var(--muted)">
+                (required for real device push)
+              </span>
+            </p>
+            <input type="text" id="fcmServerKey" class="form-input"
+              style="font-size:12px;font-family:monospace"
+              placeholder="AAAAxxxx:APA91b… (Firebase Console →
+                Project Settings → Cloud Messaging → Server key)"/>
+            <p style="font-size:11px;color:var(--muted);margin-top:6px">
+              Without key → saved to Firestore only (in-app inbox).
+              With key → real FCM push sent to Android devices.
+            </p>
+          </div>
+
+          <!-- Type Tabs -->
+          <div class="type-tabs">
+            <button class="type-tab active"
+              onclick="setType('general',this)">📢 General</button>
+            <button class="type-tab"
+              onclick="setType('order',this)">📦 Order</button>
+            <button class="type-tab"
+              onclick="setType('promo',this)">🎁 Promo</button>
+            <button class="type-tab"
+              onclick="setType('alert',this)">🚨 Alert</button>
+          </div>
+
+          <div class="compose-form">
+
+            <!-- Target Audience -->
+            <div class="form-group">
+              <label class="form-label">Target Audience</label>
+              <div class="target-grid">
+                <label class="target-opt active-opt"
+                  onclick="setTarget('all',this)">
+                  <input type="radio" name="target"
+                    value="all" checked hidden/>
+                  <span class="target-icon">👥</span>
+                  <span>All Users</span>
+                </label>
+                <label class="target-opt"
+                  onclick="setTarget('android',this)">
+                  <input type="radio" name="target"
+                    value="android" hidden/>
+                  <span class="target-icon">🤖</span>
+                  <span>Android</span>
+                </label>
+                <label class="target-opt"
+                  onclick="setTarget('premium',this)">
+                  <input type="radio" name="target"
+                    value="premium" hidden/>
+                  <span class="target-icon">⭐</span>
+                  <span>Premium</span>
+                </label>
+                <label class="target-opt"
+                  onclick="setTarget('promo',this)">
+                  <input type="radio" name="target"
+                    value="promo" hidden/>
+                  <span class="target-icon">🎁</span>
+                  <span>Promo</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Title -->
+            <div class="form-group">
+              <label class="form-label">
+                Title <span class="required">*</span>
+              </label>
+              <input type="text" id="notifTitle"
+                class="form-input"
+                placeholder="e.g. Weekend Sale is LIVE! 🎉"
+                maxlength="65"
+                oninput="updatePreview();
+                  updateCount('notifTitle','titleCount',65)"/>
+              <div class="char-count">
+                <span id="titleCount">0</span>/65
+              </div>
+            </div>
+
+            <!-- Body -->
+            <div class="form-group">
+              <label class="form-label">
+                Message <span class="required">*</span>
+              </label>
+              <textarea id="notifBody"
+                class="form-input form-textarea"
+                rows="4" maxlength="200"
+                placeholder="Your notification message here…"
+                oninput="updatePreview();
+                  updateCount('notifBody','bodyCount',200)">
+              </textarea>
+              <div class="char-count">
+                <span id="bodyCount">0</span>/200
+              </div>
+            </div>
+
+            <!-- Action -->
+            <div class="form-group">
+              <label class="form-label">
+                Deep Link Action
+                <span class="optional">(optional)</span>
+              </label>
+              <select id="notifAction"
+                class="form-input form-select">
+                <option value="">— No action —</option>
+                <option value="HOME">Open Home Screen</option>
+                <option value="ORDERS">Open My Orders</option>
+                <option value="CART">Open Cart</option>
+                <option value="PROFILE">Open Profile</option>
+                <option value="MAP">Open Store Locator</option>
+              </select>
+            </div>
+
+            <!-- Android Preview -->
+            <div class="notif-preview-wrap">
+              <p class="preview-label">📱 Android Preview</p>
+              <div class="preview-phone">
+                <div class="preview-notif">
+                  <div class="preview-icon">
+                    <svg viewBox="0 0 40 40" fill="none" width="28">
+                      <rect width="40" height="40" rx="8"
+                        fill="#FF6B35"/>
+                      <path d="M10 14h20M10 20h14" stroke="#fff"
+                        stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="preview-content">
+                    <p class="preview-title" id="prevTitle">
+                      Notification Title
+                    </p>
+                    <p class="preview-body" id="prevBody">
+                      Your message will appear here…
+                    </p>
+                  </div>
+                  <span class="preview-time">now</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Send Button -->
+            <button class="btn-send" id="btnSend"
+              onclick="sendNotification()">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="20">
+                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0
+                  001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0
+                  112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0
+                  001.17-1.408l-7-14z"/>
+              </svg>
+              <span id="sendBtnText">Send Notification</span>
+            </button>
+
+            <!-- Quick Templates -->
+            <div class="templates-section">
+              <p class="tmpl-label">Quick Templates</p>
+              <div class="templates-grid">
+                <button class="tmpl-btn"
+                  onclick="applyTemplate('sale')">
+                  🔥 Flash Sale
+                </button>
+                <button class="tmpl-btn"
+                  onclick="applyTemplate('order')">
+                  ✅ Order Confirmed
+                </button>
+                <button class="tmpl-btn"
+                  onclick="applyTemplate('shipped')">
+                  🚚 Order Shipped
+                </button>
+                <button class="tmpl-btn"
+                  onclick="applyTemplate('welcome')">
+                  👋 Welcome Back
+                </button>
+                <button class="tmpl-btn"
+                  onclick="applyTemplate('review')">
+                  ⭐ Rate Us
+                </button>
+                <button class="tmpl-btn"
+                  onclick="applyTemplate('promo')">
+                  🎁 Special Offer
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── History Panel ── -->
+        <div class="history-panel">
+          <div class="compose-header">
+            <h3>Sent History</h3>
+            <button class="btn-clear-hist"
+              onclick="clearHistory()">Clear All</button>
+          </div>
+
+          <div class="hist-filters">
+            <button class="hf-btn active"
+              onclick="filterHistory('all',this)">All</button>
+            <button class="hf-btn"
+              onclick="filterHistory('fcm',this)">FCM Push</button>
+            <button class="hf-btn"
+              onclick="filterHistory('firestore',this)">Firestore</button>
+          </div>
+
+          <div class="history-list" id="historyList">
+            <div class="hist-empty">
+              <svg viewBox="0 0 24 24" fill="none" width="40">
+                <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118
+                  14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4
+                  0v.341C7.67 6.165 6 8.388 6 11v3.159c0
+                  .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0
+                  11-6 0v-1m6 0H9" stroke="#6b6b80"
+                  stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round"/>
+              </svg>
+              <p>No notifications sent yet</p>
+              <span>Sent notifications appear here</span>
+            </div>
+          </div>
+
+          <!-- Stats -->
+          <div class="notif-stats-card">
+            <h4>This Session</h4>
+            <div class="nsc-grid">
+              <div class="nsc-item">
+                <span class="nsc-val" id="statTotal">0</span>
+                <span class="nsc-label">Total</span>
+              </div>
+              <div class="nsc-item">
+                <span class="nsc-val" id="statFcm">0</span>
+                <span class="nsc-label">FCM Push</span>
+              </div>
+              <div class="nsc-item">
+                <span class="nsc-val" id="statFirestore">0</span>
+                <span class="nsc-label">Firestore</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/auth-guard.js"></script>
+  <script src="../js/notifications.js"></script>
+</body>
+</html>

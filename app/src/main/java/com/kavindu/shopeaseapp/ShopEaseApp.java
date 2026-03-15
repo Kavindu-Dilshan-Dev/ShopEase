@@ -20,7 +20,7 @@ public class ShopEaseApp extends Application {
         super.onCreate();
         FirebaseApp.initializeApp(this);
         createNotificationChannels();
-        seedProducts();
+//        seedProducts();
     }
 
     private void createNotificationChannels() {

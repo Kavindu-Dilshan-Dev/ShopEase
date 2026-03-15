@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopEase Admin — Orders</title>
+  <link rel="stylesheet" href="../css/dashboard.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="20">
+            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110
+              2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1
+              0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0
+              01-1-1z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+        <div>
+          <h1 class="page-title">Orders</h1>
+          <p class="page-sub">
+            Live orders placed by Android app users
+          </p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <input type="text" class="search-input" id="orderSearch"
+          placeholder="Search by order ID or user…"
+          oninput="filterOrders()"/>
+        <select class="form-input form-select" id="statusFilter"
+          onchange="filterOrders()"
+          style="width:160px;padding:8px 12px">
+          <option value="">All Status</option>
+          <option value="PENDING">Pending</option>
+          <option value="CONFIRMED">Confirmed</option>
+          <option value="SHIPPED">Shipped</option>
+          <option value="DELIVERED">Delivered</option>
+          <option value="CANCELLED">Cancelled</option>
+        </select>
+        <button class="icon-btn" onclick="loadOrders()" title="Refresh">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="18">
+            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002
+              7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0
+              005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008
+              9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0
+              110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0
+              01-11.601-2.566 1 1 0 01.61-1.276z"
+              clip-rule="evenodd"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div id="toastArea" class="toast-area"></div>
+
+      <!-- Status Pills -->
+      <div class="status-pills" id="statusPills"></div>
+
+      <!-- Orders Table -->
+      <div class="table-card" style="margin-top:0">
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>User ID</th>
+                <th>Amount</th>
+                <th>Items</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="ordersBody">
+              <tr>
+                <td colspan="7"
+                  style="text-align:center;
+                         color:var(--muted);padding:32px">
+                  🔥 Loading from Firebase…
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-footer">
+          <span id="orderCount">Loading…</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ── Update Order Status Modal ── -->
+  <div class="modal-overlay" id="orderModal"
+    onclick="closeModal(event)" style="display:none">
+    <div class="modal-box" style="max-width:480px">
+      <div class="modal-header">
+        <h3 id="modalOrderId">Order Details</h3>
+        <button class="modal-close"
+          onclick="document.getElementById('orderModal')
+            .style.display='none'">✕</button>
+      </div>
+      <div class="modal-body" id="orderModalBody"></div>
+      <div class="modal-footer">
+        <div style="display:flex;gap:10px;width:100%">
+          <select id="modalStatus"
+            class="form-input form-select" style="flex:1">
+            <option value="PENDING">Pending</option>
+            <option value="CONFIRMED">Confirmed</option>
+            <option value="SHIPPED">Shipped</option>
+            <option value="DELIVERED">Delivered</option>
+            <option value="CANCELLED">Cancelled</option>
+          </select>
+          <button class="btn-send"
+            style="flex:none;padding:10px 20px;font-size:14px"
+            onclick="updateOrderStatus()">
+            Update Status
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/auth-guard.js"></script>
+  <script src="../js/orders.js"></script>
+</body>
+</html>

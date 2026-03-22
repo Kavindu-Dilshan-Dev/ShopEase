@@ -31,7 +31,10 @@ public class MultimediaActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Multimedia");
+        }
 
         recordedFilePath = getExternalCacheDir().getAbsolutePath() + "/shopease_audio.3gp";
 
@@ -48,6 +51,12 @@ public class MultimediaActivity extends AppCompatActivity {
             if (!binding.videoView.isPlaying()) binding.videoView.start();
             else binding.videoView.pause();
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private void toggleRecording() {

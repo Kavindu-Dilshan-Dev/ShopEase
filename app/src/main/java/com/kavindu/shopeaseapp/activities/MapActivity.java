@@ -48,7 +48,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Store Locator");
+        }
 
         fusedClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -58,6 +61,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         binding.btnMyLocation.setOnClickListener(v -> moveToCurrentLocation());
         binding.btnNearestStore.setOnClickListener(v -> findNearestStore());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     @Override

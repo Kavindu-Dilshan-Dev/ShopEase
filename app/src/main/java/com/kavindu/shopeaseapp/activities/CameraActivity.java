@@ -61,8 +61,10 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Camera / Gallery");
+        }
         storage = FirebaseStorage.getInstance();
 
         binding.btnCamera.setOnClickListener(v -> {
@@ -82,6 +84,12 @@ public class CameraActivity extends AppCompatActivity {
         binding.btnUpload.setOnClickListener(v -> uploadToFirebase());
 
         binding.btnUpload.setEnabled(false);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private void launchCamera() {

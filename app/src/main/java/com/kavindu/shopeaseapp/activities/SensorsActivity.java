@@ -22,7 +22,11 @@ public class SensorsActivity extends AppCompatActivity implements SensorHelper.S
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Sensors / Contact");
+        }
+
 
         sensorHelper = new SensorHelper(this, this);
 
@@ -45,6 +49,12 @@ public class SensorsActivity extends AppCompatActivity implements SensorHelper.S
 //            Toast.makeText(this, checkedIds.size() + " filter(s) selected",
 //                    Toast.LENGTH_SHORT).show();
 //        });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     @Override protected void onResume()  { super.onResume();  sensorHelper.register();   }

@@ -10,9 +10,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.kavindu.shopeaseapp" />
-                  <option name="mobileSdkAppId" value="1:1020611543958:android:b14b2a96fa26ae57b953b7" />
-                  <option name="projectId" value="shopease-4f4b8" />
-                  <option name="projectNumber" value="1020611543958" />
+                  <option name="mobileSdkAppId" value="1:653783056256:android:256ce14f41ca6198bf0b65" />
+                  <option name="projectId" value="shopeaseapp-f3332" />
+                  <option name="projectNumber" value="653783056256" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

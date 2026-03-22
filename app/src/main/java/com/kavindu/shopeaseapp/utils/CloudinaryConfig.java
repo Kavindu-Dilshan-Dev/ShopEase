@@ -12,7 +12,7 @@ public class CloudinaryConfig {
     // ✅ Replace with your actual values from Cloudinary dashboard
     private static final String CLOUD_NAME = "dfbqbcvzo";
     private static final String API_KEY    = "775656859665978";
-    private static final String API_SECRET = "";
+    private static final String API_SECRET = "_xY43zCtBZoiHJVJiqoRjkQyx3s";
 
     public static void init(Context context) {
         if (!initialized) {

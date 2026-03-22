@@ -3,7 +3,9 @@ package com.kavindu.shopeaseapp.activities;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.kavindu.shopeaseapp.databinding.ActivityProfileBinding;
 import com.kavindu.shopeaseapp.models.User;
@@ -22,14 +24,24 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Edit Profile");
+        }
 
-        db    = FirebaseFirestore.getInstance();
+
+        db = FirebaseFirestore.getInstance();
         prefs = PrefsManager.getInstance(this);
 
         loadProfile();
 
         binding.btnSave.setOnClickListener(v -> saveProfile());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private void loadProfile() {
@@ -44,12 +56,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void saveProfile() {
-        String name    = binding.etName.getText().toString().trim();
-        String phone   = binding.etPhone.getText().toString().trim();
+        String name = binding.etName.getText().toString().trim();
+        String phone = binding.etPhone.getText().toString().trim();
         String address = binding.etAddress.getText().toString().trim();
 
         if (TextUtils.isEmpty(name)) {
-            binding.tilName.setError("Name required"); return;
+            binding.tilName.setError("Name required");
+            return;
         }
 
         binding.btnSave.setEnabled(false);

@@ -25,7 +25,10 @@ public class OrdersActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("My Orders");
+        }
 
         db = FirebaseFirestore.getInstance();
         adapter = new OrderAdapter(this, orders);
@@ -33,6 +36,12 @@ public class OrdersActivity extends AppCompatActivity {
         binding.rvOrders.setAdapter(adapter);
 
         loadOrders();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private void loadOrders() {

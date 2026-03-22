@@ -11,7 +11,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/purple_700"
         app:navigationIcon="@drawable/ic_back"
-        app:title="Sensors &amp; Telephony"
+        app:title="Sensors &amp; Contact"
         app:titleTextColor="@color/white"/>
 
     <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
@@ -47,7 +47,7 @@
             <!-- Telephony -->
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="📞 Telephony" android:textSize="18sp" android:textStyle="bold"/>
+                android:text="Contact" android:textSize="18sp" android:textStyle="bold"/>
 
             <TextView android:id="@+id/tvNetworkOperator"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -68,36 +68,36 @@
                     android:text="💬 SMS Support"/>
             </LinearLayout>
 
-            <!-- Advanced: Chip Group Filter -->
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="🔖 Advanced Components – Filter" android:textSize="18sp"
-                android:textStyle="bold"/>
+<!--            &lt;!&ndash; Advanced: Chip Group Filter &ndash;&gt;-->
+<!--            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="24dp"-->
+<!--                android:text="🔖 Advanced Components – Filter" android:textSize="18sp"-->
+<!--                android:textStyle="bold"/>-->
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:selectionRequired="false"
-                app:singleSelection="false">
+<!--            <com.google.android.material.chip.ChipGroup-->
+<!--                android:id="@+id/chipGroup"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="12dp"-->
+<!--                app:selectionRequired="false"-->
+<!--                app:singleSelection="false">-->
 
-                <com.google.android.material.chip.Chip android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:text="Electronics"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"/>
-                <com.google.android.material.chip.Chip android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:text="Clothing"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"/>
-                <com.google.android.material.chip.Chip android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:text="Food"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"/>
-                <com.google.android.material.chip.Chip android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:text="Books"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"/>
-                <com.google.android.material.chip.Chip android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:text="Sports"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"/>
-            </com.google.android.material.chip.ChipGroup>
+<!--                <com.google.android.material.chip.Chip android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content" android:text="Electronics"-->
+<!--                    style="@style/Widget.MaterialComponents.Chip.Filter"/>-->
+<!--                <com.google.android.material.chip.Chip android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content" android:text="Clothing"-->
+<!--                    style="@style/Widget.MaterialComponents.Chip.Filter"/>-->
+<!--                <com.google.android.material.chip.Chip android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content" android:text="Food"-->
+<!--                    style="@style/Widget.MaterialComponents.Chip.Filter"/>-->
+<!--                <com.google.android.material.chip.Chip android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content" android:text="Books"-->
+<!--                    style="@style/Widget.MaterialComponents.Chip.Filter"/>-->
+<!--                <com.google.android.material.chip.Chip android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content" android:text="Sports"-->
+<!--                    style="@style/Widget.MaterialComponents.Chip.Filter"/>-->
+<!--            </com.google.android.material.chip.ChipGroup>-->
 
             <!-- Available Sensors List -->
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"

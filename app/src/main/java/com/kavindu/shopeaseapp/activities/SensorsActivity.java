@@ -39,12 +39,12 @@ public class SensorsActivity extends AppCompatActivity implements SensorHelper.S
         binding.btnSmsSupport.setOnClickListener(v ->
                 TelephonyHelper.sendSms(this, "Hello, I need help with my order."));
 
-        // Advanced: Chip group filter
-        binding.chipGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
-            // Handle chip selection for product filtering
-            Toast.makeText(this, checkedIds.size() + " filter(s) selected",
-                    Toast.LENGTH_SHORT).show();
-        });
+//        // Advanced: Chip group filter
+//        binding.chipGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
+//            // Handle chip selection for product filtering
+//            Toast.makeText(this, checkedIds.size() + " filter(s) selected",
+//                    Toast.LENGTH_SHORT).show();
+//        });
     }
 
     @Override protected void onResume()  { super.onResume();  sensorHelper.register();   }

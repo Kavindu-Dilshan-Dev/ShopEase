@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.cloudinary.android.MediaManager;
+import com.cloudinary.android.callback.ErrorInfo;
+import com.cloudinary.android.callback.UploadCallback;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kavindu.shopeaseapp.databinding.ActivityCameraBinding;
@@ -23,6 +26,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 public class CameraActivity extends AppCompatActivity {
 
@@ -114,34 +118,85 @@ public class CameraActivity extends AppCompatActivity {
 
     private void uploadToFirebase() {
         if (photoUri == null) return;
+
         binding.progressBar.setVisibility(android.view.View.VISIBLE);
         binding.btnUpload.setEnabled(false);
+        binding.btnUpload.setText("Uploading…");
 
-        String uid = PrefsManager.getInstance(this).getUserId();
-        String fileName = "profile_" + uid + "_" + System.currentTimeMillis() + ".jpg";
-        StorageReference ref = storage.getReference("profile_images/" + fileName);
+        String uid      = PrefsManager.getInstance(this).getUserId();
+        String fileName = "profile_" + uid + "_" +
+                System.currentTimeMillis();
 
-        ref.putFile(photoUri)
-                .addOnProgressListener(snap -> {
-                    double progress = (100.0 * snap.getBytesTransferred()) / snap.getTotalByteCount();
-                    binding.progressBar.setProgress((int) progress);
+        // ✅ Upload to Cloudinary
+        MediaManager.get()
+                .upload(photoUri)
+                .option("public_id", "shopease/profiles/" + fileName)
+                .option("folder", "shopease/profiles")
+                .callback(new UploadCallback() {
+
+                    @Override
+                    public void onStart(String requestId) {
+                        runOnUiThread(() ->
+                                binding.progressBar.setProgress(0));
+                    }
+
+                    @Override
+                    public void onProgress(String requestId,
+                                           long bytes, long totalBytes) {
+                        int progress = (int)
+                                ((bytes * 100) / totalBytes);
+                        runOnUiThread(() ->
+                                binding.progressBar.setProgress(progress));
+                    }
+
+                    @Override
+                    public void onSuccess(String requestId,
+                                          Map resultData) {
+                        // Get the secure URL
+                        String imageUrl = (String)
+                                resultData.get("secure_url");
+
+                        runOnUiThread(() -> {
+                            binding.progressBar.setVisibility(
+                                    android.view.View.GONE);
+                            binding.btnUpload.setText("Upload");
+                            binding.btnUpload.setEnabled(true);
+
+                            Toast.makeText(CameraActivity.this,
+                                    "Photo uploaded! ✅",
+                                    Toast.LENGTH_SHORT).show();
+
+                            // ✅ Save URL to Firestore
+                            com.google.firebase.firestore
+                                    .FirebaseFirestore.getInstance()
+                                    .collection("users")
+                                    .document(uid)
+                                    .update("profileImageUrl", imageUrl)
+                                    .addOnSuccessListener(v ->
+                                            Toast.makeText(CameraActivity.this,
+                                                    "Profile photo updated!",
+                                                    Toast.LENGTH_SHORT).show());
+                        });
+                    }
+
+                    @Override
+                    public void onError(String requestId,
+                                        ErrorInfo error) {
+                        runOnUiThread(() -> {
+                            binding.progressBar.setVisibility(
+                                    android.view.View.GONE);
+                            binding.btnUpload.setText("Upload");
+                            binding.btnUpload.setEnabled(true);
+                            Toast.makeText(CameraActivity.this,
+                                    "Upload failed: " + error.getDescription(),
+                                    Toast.LENGTH_SHORT).show();
+                        });
+                    }
+
+                    @Override
+                    public void onReschedule(String requestId,
+                                             ErrorInfo error) {}
                 })
-                .addOnSuccessListener(snap -> {
-                    ref.getDownloadUrl().addOnSuccessListener(uri -> {
-                        binding.progressBar.setVisibility(android.view.View.GONE);
-                        Toast.makeText(this, "Photo uploaded!", Toast.LENGTH_SHORT).show();
-                        // Update profile image URL in Firestore
-                        com.google.firebase.firestore.FirebaseFirestore.getInstance()
-                                .collection("users").document(uid)
-                                .update("profileImageUrl", uri.toString());
-                        binding.btnUpload.setEnabled(true);
-                    });
-                })
-                .addOnFailureListener(e -> {
-                    binding.progressBar.setVisibility(android.view.View.GONE);
-                    Toast.makeText(this, "Upload failed: " + e.getMessage(),
-                            Toast.LENGTH_SHORT).show();
-                    binding.btnUpload.setEnabled(true);
-                });
+                .dispatch();
     }
 }

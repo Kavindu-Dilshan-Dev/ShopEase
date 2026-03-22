@@ -10,6 +10,7 @@ import android.os.Build;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.firebase.FirebaseApp;
+import com.kavindu.shopeaseapp.utils.CloudinaryConfig;
 
 public class ShopEaseApp extends Application {
 
@@ -24,6 +25,7 @@ public class ShopEaseApp extends Application {
         createNotificationChannels();
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 //        seedProducts();
+        CloudinaryConfig.init(this);
     }
 
     private void createNotificationChannels() {

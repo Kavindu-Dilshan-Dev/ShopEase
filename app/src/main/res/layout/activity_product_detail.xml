@@ -127,30 +127,59 @@
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
-                <ImageButton
-                    android:id="@+id/btnDecrease"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:background="@color/gray_light"
-                    android:contentDescription="Decrease"
-                    android:src="@android:drawable/ic_delete"/>
-
-                <TextView
-                    android:id="@+id/tvQuantity"
-                    android:layout_width="48dp"
+                <!-- ✅ Modern quantity controls -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="1"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_quantity_control"
+                    android:padding="4dp">
 
-                <ImageButton
-                    android:id="@+id/btnIncrease"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:background="@color/purple_700"
-                    android:contentDescription="Increase"
-                    android:src="@android:drawable/ic_input_add"/>
+                    <!-- ✅ Minus -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnDecrease"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:padding="0dp"
+                        app:icon="@drawable/ic_remove"
+                        app:iconSize="18dp"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:cornerRadius="8dp"
+                        android:backgroundTint="@color/purple_700"
+                        style="@style/Widget.MaterialComponents.Button.Icon"/>
+
+                    <!-- Quantity Number -->
+                    <TextView
+                        android:id="@+id/tvQuantity"
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary"/>
+
+                    <!-- ✅ Plus -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnIncrease"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:padding="0dp"
+                        app:icon="@drawable/ic_add"
+                        app:iconSize="18dp"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:cornerRadius="8dp"
+                        android:backgroundTint="@color/purple_700"
+                        style="@style/Widget.MaterialComponents.Button.Icon"/>
+
+                </LinearLayout>
             </LinearLayout>
 
             <!-- Buttons -->

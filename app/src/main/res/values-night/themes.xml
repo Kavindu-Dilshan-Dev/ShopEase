@@ -15,6 +15,9 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/purple_700</item>
         <item name="android:navigationBarColor">@color/dark_surface</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+
+        <item name="android:editTextStyle">@style/AppEditTextStyle.Night</item>
+        <item name="editTextStyle">@style/AppEditTextStyle.Night</item>
     </style>
 
     <style name="Theme.ShopEase.Splash" parent="Theme.ShopEase">

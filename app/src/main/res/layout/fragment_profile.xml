@@ -3,12 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_light">
+    android:background="@color/gray_light"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="200dp">
 
         <!-- Header Card -->
         <androidx.cardview.widget.CardView
@@ -34,8 +38,8 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:background="@drawable/circle_white_bg"
-                        android:src="@drawable/ic_profile_placeholder"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_profile_placeholder" />
 
                     <ImageView
                         android:layout_width="28dp"
@@ -43,7 +47,7 @@
                         android:layout_gravity="bottom|end"
                         android:background="@color/teal_200"
                         android:padding="4dp"
-                        android:src="@android:drawable/ic_menu_camera"/>
+                        android:src="@android:drawable/ic_menu_camera" />
                 </FrameLayout>
 
                 <TextView
@@ -54,7 +58,7 @@
                     android:text="User Name"
                     android:textColor="@color/white"
                     android:textSize="22sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvUserEmail"
@@ -62,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="email@example.com"
-                    android:textColor="#CCFFFFFF"/>
+                    android:textColor="#CCFFFFFF" />
 
                 <TextView
                     android:id="@+id/tvUserPhone"
@@ -70,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="+94 77 000 0000"
-                    android:textColor="#CCFFFFFF"/>
+                    android:textColor="#CCFFFFFF" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEditProfile"
@@ -80,7 +84,7 @@
                     android:layout_marginTop="16dp"
                     android:text="Edit Profile"
                     android:textColor="@color/white"
-                    app:strokeColor="@color/white"/>
+                    app:strokeColor="@color/white" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -101,15 +105,24 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="3dp">
-                <LinearLayout android:layout_width="match_parent"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center" android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="📦"
-                        android:textSize="32sp"/>
-                    <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="My Orders"
-                        android:textStyle="bold"/>
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📦"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="My Orders"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -122,15 +135,24 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="3dp">
-                <LinearLayout android:layout_width="match_parent"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center" android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="🗺️"
-                        android:textSize="32sp"/>
-                    <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="Store Locator"
-                        android:textStyle="bold"/>
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🗺️"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Store Locator"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -143,15 +165,24 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="3dp">
-                <LinearLayout android:layout_width="match_parent"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center" android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="📷"
-                        android:textSize="32sp"/>
-                    <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="Camera"
-                        android:textStyle="bold"/>
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📷"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Camera"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -164,15 +195,24 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="3dp">
-                <LinearLayout android:layout_width="match_parent"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center" android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="🎵"
-                        android:textSize="32sp"/>
-                    <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="Multimedia"
-                        android:textStyle="bold"/>
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🎵"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Multimedia"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -185,15 +225,24 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="3dp">
-                <LinearLayout android:layout_width="match_parent"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center" android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="📡"
-                        android:textSize="32sp"/>
-                    <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="Sensors"
-                        android:textStyle="bold"/>
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📡"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sensors"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -206,15 +255,24 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="3dp">
-                <LinearLayout android:layout_width="match_parent"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center" android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="⚙️"
-                        android:textSize="32sp"/>
-                    <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="Settings"
-                        android:textStyle="bold"/>
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⚙️"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Settings"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -222,13 +280,19 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_margin="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
             android:text="🚪 Logout"
-            android:textColor="@color/red_error"
-            app:strokeColor="@color/red_error"/>
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/red_error"
+            app:cornerRadius="12dp"
+            app:rippleColor="#FF6666"/>
 
     </LinearLayout>
 </ScrollView>

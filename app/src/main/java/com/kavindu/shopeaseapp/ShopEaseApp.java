@@ -7,6 +7,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.google.firebase.FirebaseApp;
 
 public class ShopEaseApp extends Application {
@@ -20,6 +22,7 @@ public class ShopEaseApp extends Application {
         super.onCreate();
         FirebaseApp.initializeApp(this);
         createNotificationChannels();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 //        seedProducts();
     }
 

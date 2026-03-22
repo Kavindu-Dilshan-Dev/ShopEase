@@ -26,7 +26,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/placeholder_product"/>
 
-            <!-- Discount Badge (top left) -->
+            <!-- Discount Badge top left -->
             <TextView
                 android:id="@+id/tvDiscount"
                 android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
                 android:textStyle="bold"
                 android:visibility="gone"/>
 
-            <!-- Favourite Button (top right) -->
+            <!-- Favourite Button top right -->
             <ImageButton
                 android:id="@+id/btnFavorite"
                 android:layout_width="36dp"
@@ -86,36 +86,34 @@
                 android:stepSize="0.5"
                 android:isIndicator="true"/>
 
-            <!-- Price + Add to Cart Row -->
-            <LinearLayout
+            <!-- ✅ Price -->
+            <TextView
+                android:id="@+id/tvPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:textColor="@color/purple_700"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
-                <!-- Price -->
-                <TextView
-                    android:id="@+id/tvPrice"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/purple_700"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
+            <!-- ✅ Add to Cart Button — full width below price -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddToCart"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="8dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="Add to Cart"
+                android:textSize="12sp"
+                android:backgroundTint="@color/purple_700"
+                app:icon="@drawable/ic_add"
+                app:iconSize="14dp"
+                app:iconGravity="textStart"
+                app:iconPadding="4dp"
+                app:cornerRadius="10dp"
+                style="@style/Widget.MaterialComponents.Button.Icon"/>
 
-                <!-- Add to Cart Button -->
-                <ImageButton
-                    android:id="@+id/btnAddToCart"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:background="@color/purple_700"
-                    android:contentDescription="Add to cart"
-                    android:padding="4dp"
-                    android:src="@android:drawable/ic_input_add"
-                    app:tint="@color/white" />
-
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

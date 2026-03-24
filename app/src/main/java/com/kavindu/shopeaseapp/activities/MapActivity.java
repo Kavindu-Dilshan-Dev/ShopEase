@@ -3,64 +3,340 @@ package com.kavindu.shopeaseapp.activities;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.gms.location.*;
-import com.google.android.gms.maps.*;
-import com.google.android.gms.maps.model.*;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.kavindu.shopeaseapp.R;
 import com.kavindu.shopeaseapp.databinding.ActivityMapBinding;
-import com.kavindu.shopeaseapp.utils.DirectionsParser;
 
-import org.json.JSONObject;
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapActivity extends AppCompatActivity
+        implements OnMapReadyCallback {
+
+    private ActivityMapBinding binding;
+    private GoogleMap mMap;
+    private FusedLocationProviderClient fusedClient;
+    private Marker myLocationMarker;
 
     private static final int LOCATION_PERMISSION_CODE = 101;
-    private ActivityMapBinding binding;
-    private GoogleMap googleMap;
-    private FusedLocationProviderClient fusedClient;
-    private LatLng currentLocation;
-    private Polyline currentRoute;
 
-    // Predefined store locations
-    private final List<StoreLocation> stores = Arrays.asList(
-            new StoreLocation("ShopEase Colombo", new LatLng(6.9271, 79.8612)),
-            new StoreLocation("ShopEase Kandy",   new LatLng(7.2906, 80.6337)),
-            new StoreLocation("ShopEase Galle",   new LatLng(6.0535, 80.2210)),
-            new StoreLocation("ShopEase Negombo", new LatLng(7.2083, 79.8358))
-    );
+    // ── Sri Lanka Store Locations ────────────
+    // Replace with your actual store locations
+    private static final List<StoreLocation> STORES =
+            new ArrayList<StoreLocation>() {{
+                add(new StoreLocation(
+                        "ShopEase Colombo",
+                        "No 1, Galle Road, Colombo 03",
+                        6.9271, 79.8612));
+                add(new StoreLocation(
+                        "ShopEase Kandy",
+                        "No 15, Peradeniya Road, Kandy",
+                        7.2906, 80.6337));
+                add(new StoreLocation(
+                        "ShopEase Galle",
+                        "No 8, Matara Road, Galle",
+                        6.0535, 80.2210));
+                add(new StoreLocation(
+                        "ShopEase Negombo",
+                        "No 22, Main Street, Negombo",
+                        7.2008, 79.8738));
+                add(new StoreLocation(
+                        "ShopEase Jaffna",
+                        "No 5, Hospital Road, Jaffna",
+                        9.6615, 80.0255));
+            }};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMapBinding.inflate(getLayoutInflater());
+        binding = ActivityMapBinding.inflate(
+                getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Setup toolbar
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("Store Locator");
+            getSupportActionBar()
+                    .setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar()
+                    .setTitle("Store Locator");
         }
 
-        fusedClient = LocationServices.getFusedLocationProviderClient(this);
+        // Setup location client
+        fusedClient = LocationServices
+                .getFusedLocationProviderClient(this);
 
-        SupportMapFragment mapFragment = (SupportMapFragment)
-                getSupportFragmentManager().findFragmentById(R.id.mapFragment);
-        if (mapFragment != null) mapFragment.getMapAsync(this);
+        // Initialize map
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.mapFragment);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
-        binding.btnMyLocation.setOnClickListener(v -> moveToCurrentLocation());
-        binding.btnNearestStore.setOnClickListener(v -> findNearestStore());
+        // FAB click → go to my location
+        binding.fabMyLocation.setOnClickListener(
+                v -> moveToMyLocation());
+    }
+
+    // ── Map Ready ────────────────────────────
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Map UI settings
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setCompassEnabled(true);
+        mMap.getUiSettings().setMapToolbarEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+        // Map type
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        // Add all store markers
+        addStoreMarkers();
+
+        // Move camera to show all Sri Lanka
+        LatLng sriLanka = new LatLng(7.8731, 80.7718);
+        mMap.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                        sriLanka, 7.5f));
+
+        // Enable my location layer if permitted
+        enableMyLocationLayer();
+
+        // Marker click → show info card
+        mMap.setOnMarkerClickListener(marker -> {
+            marker.showInfoWindow();
+
+            // Find matching store
+            for (StoreLocation store : STORES) {
+                if (store.name.equals(marker.getTitle())) {
+                    showNearestStoreCard(store, null);
+                    break;
+                }
+            }
+            return false;
+        });
+
+        // Map click → hide card
+        mMap.setOnMapClickListener(latLng ->
+                binding.cardNearestStore
+                        .setVisibility(View.GONE));
+    }
+
+    // ── Add Store Markers ────────────────────
+    private void addStoreMarkers() {
+        for (StoreLocation store : STORES) {
+            LatLng pos = new LatLng(
+                    store.lat, store.lng);
+
+            // Purple marker for store
+            mMap.addMarker(new MarkerOptions()
+                    .position(pos)
+                    .title(store.name)
+                    .snippet(store.address)
+                    .icon(BitmapDescriptorFactory
+                            .defaultMarker(
+                                    BitmapDescriptorFactory.HUE_VIOLET)));
+
+            // Purple circle around store (500m radius)
+            mMap.addCircle(new CircleOptions()
+                    .center(pos)
+                    .radius(500)
+                    .strokeColor(
+                            Color.argb(180, 108, 32, 217))
+                    .fillColor(
+                            Color.argb(30, 108, 32, 217))
+                    .strokeWidth(2f));
+        }
+    }
+
+    // ── Enable My Location Layer ─────────────
+    private void enableMyLocationLayer() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                    },
+                    LOCATION_PERMISSION_CODE);
+        }
+    }
+
+    // ── Move to My Location ──────────────────
+    private void moveToMyLocation() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION},
+                    LOCATION_PERMISSION_CODE);
+            return;
+        }
+
+        fusedClient.getLastLocation()
+                .addOnSuccessListener(location -> {
+                    if (location != null) {
+                        LatLng myPos = new LatLng(
+                                location.getLatitude(),
+                                location.getLongitude());
+
+                        // Remove old marker
+                        if (myLocationMarker != null)
+                            myLocationMarker.remove();
+
+                        // Add blue marker for user
+                        myLocationMarker = mMap.addMarker(
+                                new MarkerOptions()
+                                        .position(myPos)
+                                        .title("📍 You are here")
+                                        .icon(BitmapDescriptorFactory
+                                                .defaultMarker(
+                                                        BitmapDescriptorFactory
+                                                                .HUE_AZURE)));
+
+                        // Animate to my location
+                        mMap.animateCamera(
+                                CameraUpdateFactory
+                                        .newLatLngZoom(myPos, 13f));
+
+                        // Find and show nearest store
+                        findNearestStore(
+                                location.getLatitude(),
+                                location.getLongitude());
+
+                    } else {
+                        Toast.makeText(this,
+                                "Could not get your location. " +
+                                        "Make sure GPS is on.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(this,
+                                "Location error: " + e.getMessage(),
+                                Toast.LENGTH_SHORT).show());
+    }
+
+    // ── Find Nearest Store ───────────────────
+    private void findNearestStore(
+            double myLat, double myLng) {
+
+        StoreLocation nearest = null;
+        double minDist = Double.MAX_VALUE;
+
+        for (StoreLocation store : STORES) {
+            double dist = calculateDistance(
+                    myLat, myLng, store.lat, store.lng);
+            if (dist < minDist) {
+                minDist = dist;
+                nearest = store;
+            }
+        }
+
+        if (nearest != null) {
+            showNearestStoreCard(nearest, minDist);
+            drawLineTo(myLat, myLng,
+                    nearest.lat, nearest.lng);
+        }
+    }
+
+    // ── Show Nearest Store Card ──────────────
+    private void showNearestStoreCard(
+            StoreLocation store, Double distKm) {
+
+        binding.tvNearestName.setText(store.name);
+        binding.tvNearestAddress.setText(store.address);
+
+        if (distKm != null) {
+            binding.tvNearestDistance.setText(
+                    String.format("%.1f km", distKm));
+        } else {
+            binding.tvNearestDistance.setText("");
+        }
+
+        binding.cardNearestStore
+                .setVisibility(View.VISIBLE);
+    }
+
+    // ── Draw Line to Nearest Store ───────────
+    private void drawLineTo(double myLat, double myLng,
+                            double storeLat,
+                            double storeLng) {
+        mMap.addPolyline(new PolylineOptions()
+                .add(new LatLng(myLat, myLng))
+                .add(new LatLng(storeLat, storeLng))
+                .width(5f)
+                .color(Color.argb(180, 108, 32, 217))
+                .geodesic(true));
+    }
+
+    // ── Haversine Distance Formula ───────────
+    private double calculateDistance(
+            double lat1, double lng1,
+            double lat2, double lng2) {
+        final double R = 6371; // Earth radius km
+        double dLat    = Math.toRadians(lat2 - lat1);
+        double dLng    = Math.toRadians(lng2 - lng1);
+        double a       =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                        Math.cos(Math.toRadians(lat1)) *
+                                Math.cos(Math.toRadians(lat2)) *
+                                Math.sin(dLng / 2) * Math.sin(dLng / 2);
+        double c = 2 * Math.atan2(
+                Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
+
+    // ── Permission Result ────────────────────
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode,
+            @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(
+                requestCode, permissions, grantResults);
+
+        if (requestCode == LOCATION_PERMISSION_CODE) {
+            if (grantResults.length > 0 &&
+                    grantResults[0] ==
+                            PackageManager.PERMISSION_GRANTED) {
+                enableMyLocationLayer();
+                moveToMyLocation();
+            } else {
+                Toast.makeText(this,
+                        "Location permission denied. " +
+                                "Cannot show your location.",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override
@@ -69,165 +345,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         return true;
     }
 
-    @Override
-    public void onMapReady(@NonNull GoogleMap map) {
-        googleMap = map;
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.getUiSettings().setCompassEnabled(true);
-        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-
-        // Add store markers
-        for (StoreLocation store : stores) {
-            googleMap.addMarker(new MarkerOptions()
-                    .position(store.latLng)
-                    .title(store.name)
-                    .snippet("Tap for directions")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
-        }
-
-        // Marker click → get directions
-        googleMap.setOnMarkerClickListener(marker -> {
-            marker.showInfoWindow();
-            if (currentLocation != null)
-                getDirections(currentLocation, marker.getPosition(), marker.getTitle());
-            return true;
-        });
-
-        checkLocationPermission();
-    }
-
-    private void checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            enableMyLocation();
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_CODE);
-        }
-    }
-
-    private void enableMyLocation() {
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) return;
-        googleMap.setMyLocationEnabled(true);
-        moveToCurrentLocation();
-    }
-
-    private void moveToCurrentLocation() {
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) return;
-
-        fusedClient.getLastLocation().addOnSuccessListener(location -> {
-            if (location != null) {
-                currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 14f));
-
-                googleMap.addMarker(new MarkerOptions()
-                        .position(currentLocation)
-                        .title("You are here")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-            } else {
-                Toast.makeText(this, "Unable to get location", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void findNearestStore() {
-        if (currentLocation == null) {
-            Toast.makeText(this, "Getting your location...", Toast.LENGTH_SHORT).show();
-            moveToCurrentLocation(); return;
-        }
-        StoreLocation nearest = null;
-        float minDist = Float.MAX_VALUE;
-        for (StoreLocation store : stores) {
-            float[] result = new float[1];
-            Location.distanceBetween(
-                    currentLocation.latitude, currentLocation.longitude,
-                    store.latLng.latitude, store.latLng.longitude, result);
-            if (result[0] < minDist) { minDist = result[0]; nearest = store; }
-        }
-        if (nearest != null) {
-            getDirections(currentLocation, nearest.latLng, nearest.name);
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(nearest.latLng, 14f));
-            Toast.makeText(this, "Nearest: " + nearest.name + " (" +
-                    String.format("%.1f", minDist / 1000) + " km)", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void getDirections(LatLng origin, LatLng dest, String destName) {
-        String apiKey = getString(R.string.google_maps_key);
-        String url = "https://maps.googleapis.com/maps/api/directions/json?" +
-                "origin=" + origin.latitude + "," + origin.longitude +
-                "&destination=" + dest.latitude + "," + dest.longitude +
-                "&mode=driving&key=" + apiKey;
-
-        new FetchDirectionsTask(destName).execute(url);
-    }
-
-    private class FetchDirectionsTask extends AsyncTask<String, Void, String> {
-        private final String destName;
-        FetchDirectionsTask(String destName) { this.destName = destName; }
-
-        @Override
-        protected String doInBackground(String... urls) {
-            try {
-                URL url = new URL(urls[0]);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.connect();
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(conn.getInputStream()));
-                StringBuilder sb = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) sb.append(line);
-                return sb.toString();
-            } catch (Exception e) { return null; }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            if (result == null) {
-                Toast.makeText(MapActivity.this, "Directions unavailable", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            try {
-                JSONObject json = new JSONObject(result);
-                List<LatLng> points = DirectionsParser.parse(json);
-                if (currentRoute != null) currentRoute.remove();
-
-                PolylineOptions opts = new PolylineOptions()
-                        .addAll(points)
-                        .width(8f)
-                        .color(Color.parseColor("#6200EE"))
-                        .geodesic(true);
-                currentRoute = googleMap.addPolyline(opts);
-
-                // Fit map to show full route
-                if (!points.isEmpty()) {
-                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                    for (LatLng p : points) builder.include(p);
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 100));
-                }
-
-                binding.tvDirectionInfo.setText("Directions to: " + destName);
-            } catch (Exception e) {
-                Toast.makeText(MapActivity.this, "Error parsing route", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int code, @NonNull String[] perms,
-                                           @NonNull int[] results) {
-        super.onRequestPermissionsResult(code, perms, results);
-        if (code == LOCATION_PERMISSION_CODE && results.length > 0
-                && results[0] == PackageManager.PERMISSION_GRANTED) {
-            enableMyLocation();
-        }
-    }
-
+    // ── Store Location Data Class ────────────
     static class StoreLocation {
-        String name; LatLng latLng;
-        StoreLocation(String n, LatLng l) { name = n; latLng = l; }
+        String name, address;
+        double lat, lng;
+
+        StoreLocation(String name, String address,
+                      double lat, double lng) {
+            this.name    = name;
+            this.address = address;
+            this.lat     = lat;
+            this.lng     = lng;
+        }
     }
 }

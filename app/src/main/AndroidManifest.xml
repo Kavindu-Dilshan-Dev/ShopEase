@@ -58,6 +58,11 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
 
+        <!-- Google Maps API Key -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}"/>
+
         <!-- Activities -->
         <activity
             android:name=".activities.SplashActivity"
@@ -118,11 +123,6 @@
             android:name="lk.payhere.androidsdk.PHMainActivity"
             android:exported="false"
             tools:node="replace" />
-
-        <!-- Maps API Key -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_GOOGLE_MAPS_API_KEY" />
 
         <!-- FCM Service -->
         <service

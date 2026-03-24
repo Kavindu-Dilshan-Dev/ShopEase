@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:padding="24dp">
 
-        <!-- Logo -->
+
         <ImageView
             android:id="@+id/ivLogo"
             android:layout_width="80dp"
@@ -22,7 +22,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- App Name -->
+
         <TextView
             android:id="@+id/tvAppName"
             android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivLogo" />
 
-        <!-- Welcome Text -->
+
         <TextView
             android:id="@+id/tvWelcome"
             android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvAppName" />
 
-        <!-- Subtitle -->
+
         <TextView
             android:id="@+id/tvSubtitle"
             android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvWelcome" />
 
-        <!-- Email Input -->
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilEmail"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -85,7 +85,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Password Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilPassword"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -108,7 +107,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Forgot Password -->
+
         <TextView
             android:id="@+id/tvForgotPassword"
             android:layout_width="wrap_content"
@@ -120,7 +119,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilPassword" />
 
-        <!-- Login Button -->
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
             android:layout_width="0dp"
@@ -133,7 +132,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvForgotPassword" />
 
 
-        <!-- Register Link -->
+
         <TextView
             android:id="@+id/tvRegister"
             android:layout_width="wrap_content"

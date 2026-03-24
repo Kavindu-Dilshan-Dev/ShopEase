@@ -14,7 +14,7 @@ public class User {
         this.createdAt = System.currentTimeMillis();
     }
 
-    // Getters & Setters
+
     public String getUid() {
         return uid;
     }

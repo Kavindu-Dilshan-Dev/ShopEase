@@ -17,7 +17,7 @@ public class Order {
     public static final String STATUS_DELIVERED = "DELIVERED";
     public static final String STATUS_CANCELLED = "CANCELLED";
 
-    // Getters & Setters
+
     public String getId() {
         return id;
     }

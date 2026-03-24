@@ -49,7 +49,7 @@ public class NotificationAdapter extends
         holder.tvMessage.setText(notif.getMessage());
         holder.tvTime.setText(formatTime(notif.getCreatedAt()));
 
-        // Type icon color
+
         switch (notif.getType() != null ? notif.getType() : "general") {
             case "order":
                 holder.ivIcon.setImageResource(
@@ -65,10 +65,10 @@ public class NotificationAdapter extends
                 break;
         }
 
-        // Unread indicator
+
         holder.itemView.setAlpha(notif.isRead() ? 0.6f : 1.0f);
 
-        // Mark as read on click
+
         holder.itemView.setOnClickListener(v -> {
             if (!notif.isRead()) {
                 notif.setRead(true);
@@ -80,7 +80,7 @@ public class NotificationAdapter extends
             }
         });
 
-        // Swipe to delete (long press)
+        // Swipe to delete
         holder.itemView.setOnLongClickListener(v -> {
             FirebaseFirestore.getInstance()
                     .collection("notifications")

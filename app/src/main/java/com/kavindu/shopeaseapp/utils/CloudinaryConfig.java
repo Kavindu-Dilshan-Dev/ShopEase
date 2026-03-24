@@ -9,7 +9,7 @@ public class CloudinaryConfig {
 
     private static boolean initialized = false;
 
-    // ✅ Replace with your actual values from Cloudinary dashboard
+
     private static final String CLOUD_NAME = "dfbqbcvzo";
     private static final String API_KEY    = "775656859665978";
     private static final String API_SECRET = "_xY43zCtBZoiHJVJiqoRjkQyx3s";

@@ -6,7 +6,7 @@ public class NotificationModel {
     private String userId;
     private String title;
     private String message;
-    private String type;       // order / promo / general
+    private String type;
     private boolean isRead;
     private long createdAt;
 
@@ -23,7 +23,6 @@ public class NotificationModel {
         this.createdAt = System.currentTimeMillis();
     }
 
-    // ── Getters & Setters ──────────────────────
 
     public String getId() {
         return id;

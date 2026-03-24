@@ -13,7 +13,7 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    // Getters & Setters
+
     public String getId() {
         return id;
     }

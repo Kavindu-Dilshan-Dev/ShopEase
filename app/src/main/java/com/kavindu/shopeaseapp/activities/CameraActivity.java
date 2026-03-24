@@ -127,7 +127,7 @@ public class CameraActivity extends AppCompatActivity {
         String fileName = "profile_" + uid + "_" +
                 System.currentTimeMillis();
 
-        // ✅ Upload to Cloudinary
+        // Upload to Cloudinary
         MediaManager.get()
                 .upload(photoUri)
                 .option("public_id", "shopease/profiles/" + fileName)
@@ -166,7 +166,7 @@ public class CameraActivity extends AppCompatActivity {
                                     "Photo uploaded! ✅",
                                     Toast.LENGTH_SHORT).show();
 
-                            // ✅ Save URL to Firestore
+                            // Save URL to Firestore
                             com.google.firebase.firestore
                                     .FirebaseFirestore.getInstance()
                                     .collection("users")

@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-// ✅ Add this import
 import com.google.android.material.button.MaterialButton;
 import com.kavindu.shopeaseapp.R;
 import com.kavindu.shopeaseapp.activities.ProductDetailActivity;
@@ -79,7 +78,7 @@ public class ProductAdapter extends
             holder.tvDiscount.setVisibility(View.GONE);
         }
 
-        // Click → open product detail
+
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(
                     context, ProductDetailActivity.class);
@@ -87,7 +86,7 @@ public class ProductAdapter extends
             context.startActivity(intent);
         });
 
-        // Add to cart with scale animation
+
         holder.btnAddToCart.setOnClickListener(v -> {
             v.animate()
                     .scaleX(0.8f).scaleY(0.8f)
@@ -101,14 +100,14 @@ public class ProductAdapter extends
             cartClickListener.onAddToCart(product);
         });
 
-        // Favorite button — only if exists in layout
+
         if (holder.btnFavorite != null) {
             holder.btnFavorite.setOnClickListener(v -> {
                 // Handle favorite toggle here if needed
             });
         }
 
-        // Slide-in animation
+
         setAnimation(holder.itemView, position);
     }
 
@@ -134,19 +133,16 @@ public class ProductAdapter extends
         notifyDataSetChanged();
     }
 
-    // ── ViewHolder ───────────────────────────
+
     static class ProductViewHolder extends RecyclerView.ViewHolder {
 
         ImageView      ivProduct;
         TextView       tvProductName, tvPrice, tvDiscount;
         RatingBar      ratingBar;
 
-        // ✅ Changed from ImageButton to MaterialButton
+
         MaterialButton btnAddToCart;
 
-        // ✅ btnFavorite stays ImageButton if it's ImageButton in XML
-        // If your item_product.xml has MaterialButton for favorite
-        // change this to MaterialButton too
         ImageButton    btnFavorite;
 
         ProductViewHolder(@NonNull View itemView) {
@@ -157,10 +153,8 @@ public class ProductAdapter extends
             tvDiscount    = itemView.findViewById(R.id.tvDiscount);
             ratingBar     = itemView.findViewById(R.id.ratingBar);
 
-            // ✅ Now correctly typed as MaterialButton
             btnAddToCart  = itemView.findViewById(R.id.btnAddToCart);
 
-            // ✅ Favorite stays ImageButton
             btnFavorite   = itemView.findViewById(R.id.btnFavorite);
         }
     }

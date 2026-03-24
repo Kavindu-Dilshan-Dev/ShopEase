@@ -37,7 +37,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void startAnimations() {
-        // Logo bounce animation
+
         ObjectAnimator scaleX = ObjectAnimator.ofFloat(
                 binding.ivLogo, "scaleX", 0f, 1f);
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(
@@ -47,13 +47,13 @@ public class SplashActivity extends AppCompatActivity {
         scaleX.setInterpolator(new BounceInterpolator());
         scaleY.setInterpolator(new BounceInterpolator());
 
-        // App name fade in
+
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(
                 binding.tvAppName, "alpha", 0f, 1f);
         fadeIn.setDuration(1000);
         fadeIn.setStartDelay(600);
 
-        // Tagline slide up
+
         ObjectAnimator slideUp = ObjectAnimator.ofFloat(
                 binding.tvTagline, "translationY", 80f, 0f);
         ObjectAnimator tagFade = ObjectAnimator.ofFloat(
@@ -64,7 +64,7 @@ public class SplashActivity extends AppCompatActivity {
         tagFade.setStartDelay(800);
         slideUp.setInterpolator(new OvershootInterpolator());
 
-        // Play all together
+
         AnimatorSet set = new AnimatorSet();
         set.playTogether(scaleX, scaleY, fadeIn, slideUp, tagFade);
         set.start();

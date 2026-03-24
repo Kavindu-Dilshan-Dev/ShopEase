@@ -14,7 +14,7 @@
         android:title="My Cart"
         android:titleTextColor="@color/white"/>
 
-    <!-- ✅ RecyclerView MUST have layout_weight="1" -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCart"
         android:layout_width="match_parent"

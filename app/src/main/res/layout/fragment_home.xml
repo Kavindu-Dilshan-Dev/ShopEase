@@ -74,7 +74,7 @@
                 android:textColor="@color/text_primary"
                 android:visibility="gone"/>
 
-            <!-- ✅ Category Chips — replaces rvCategories -->
+            <!-- Category Chips — replaces rvCategories -->
             <HorizontalScrollView
                 android:id="@+id/categoryScrollView"
                 android:layout_width="match_parent"

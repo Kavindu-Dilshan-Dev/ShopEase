@@ -45,7 +45,7 @@
                 android:maxLines="2"
                 android:ellipsize="end"/>
 
-            <!-- ✅ Unit Price — ID changed to tvUnitPrice -->
+            <!-- Unit Price — ID changed to tvUnitPrice -->
             <TextView
                 android:id="@+id/tvUnitPrice"
                 android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
 
             </LinearLayout>
 
-            <!-- ✅ Total Price — added below quantity controls -->
+            <!--Total Price — added below quantity controls -->
             <TextView
                 android:id="@+id/tvTotalPrice"
                 android:layout_width="wrap_content"

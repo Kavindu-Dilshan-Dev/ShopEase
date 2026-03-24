@@ -1,15 +1,13 @@
 package com.kavindu.shopeaseapp.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.kavindu.shopeaseapp.databinding.ActivitySettingsBinding;
 import com.kavindu.shopeaseapp.utils.FileStorageHelper;
 import com.kavindu.shopeaseapp.utils.PrefsManager;
-
-import java.io.IOException;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -68,8 +66,8 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         binding.btnSortDefault.setOnClickListener(v -> setSortPref("default"));
-        binding.btnSortPrice.setOnClickListener(v ->   setSortPref("price_asc"));
-        binding.btnSortRating.setOnClickListener(v ->  setSortPref("rating"));
+        binding.btnSortPrice.setOnClickListener(v -> setSortPref("price_asc"));
+        binding.btnSortRating.setOnClickListener(v -> setSortPref("rating"));
 
         binding.btnSaveNotes.setOnClickListener(v -> {
             String notes = binding.etNotes.getText().toString();

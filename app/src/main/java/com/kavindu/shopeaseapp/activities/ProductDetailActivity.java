@@ -109,15 +109,13 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
     }
 
-    // ─────────────────────────────────────────────
-    // Buttons
-    // ─────────────────────────────────────────────
+
 
     private void setupButtons() {
         // Add to Cart
         binding.btnAddToCart.setOnClickListener(v -> addToCart());
 
-        // Buy Now — add to cart then go to checkout
+        // Buy Now  add to cart then go to checkout
         binding.btnBuyNow.setOnClickListener(v -> {
             addToCart();
             startActivity(new Intent(this, CheckoutActivity.class));

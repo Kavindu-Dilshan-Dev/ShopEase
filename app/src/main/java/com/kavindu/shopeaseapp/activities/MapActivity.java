@@ -41,8 +41,6 @@ public class MapActivity extends AppCompatActivity
 
     private static final int LOCATION_PERMISSION_CODE = 101;
 
-    // ── Sri Lanka Store Locations ────────────
-    // Replace with your actual store locations
     private static final List<StoreLocation> STORES =
             new ArrayList<StoreLocation>() {{
                 add(new StoreLocation(
@@ -95,42 +93,42 @@ public class MapActivity extends AppCompatActivity
             mapFragment.getMapAsync(this);
         }
 
-        // FAB click → go to my location
+        // FAB click go to my location
         binding.fabMyLocation.setOnClickListener(
                 v -> moveToMyLocation());
     }
 
-    // ── Map Ready ────────────────────────────
+
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Map UI settings
+
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
         mMap.getUiSettings().setMapToolbarEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
-        // Map type
+
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        // Add all store markers
+
         addStoreMarkers();
 
-        // Move camera to show all Sri Lanka
+
         LatLng sriLanka = new LatLng(7.8731, 80.7718);
         mMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                         sriLanka, 7.5f));
 
-        // Enable my location layer if permitted
+
         enableMyLocationLayer();
 
-        // Marker click → show info card
+
         mMap.setOnMarkerClickListener(marker -> {
             marker.showInfoWindow();
 
-            // Find matching store
+
             for (StoreLocation store : STORES) {
                 if (store.name.equals(marker.getTitle())) {
                     showNearestStoreCard(store, null);
@@ -140,13 +138,13 @@ public class MapActivity extends AppCompatActivity
             return false;
         });
 
-        // Map click → hide card
+
         mMap.setOnMapClickListener(latLng ->
                 binding.cardNearestStore
                         .setVisibility(View.GONE));
     }
 
-    // ── Add Store Markers ────────────────────
+
     private void addStoreMarkers() {
         for (StoreLocation store : STORES) {
             LatLng pos = new LatLng(
@@ -173,7 +171,7 @@ public class MapActivity extends AppCompatActivity
         }
     }
 
-    // ── Enable My Location Layer ─────────────
+
     private void enableMyLocationLayer() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -189,7 +187,7 @@ public class MapActivity extends AppCompatActivity
         }
     }
 
-    // ── Move to My Location ──────────────────
+
     private void moveToMyLocation() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -245,7 +243,7 @@ public class MapActivity extends AppCompatActivity
                                 Toast.LENGTH_SHORT).show());
     }
 
-    // ── Find Nearest Store ───────────────────
+
     private void findNearestStore(
             double myLat, double myLng) {
 
@@ -268,7 +266,7 @@ public class MapActivity extends AppCompatActivity
         }
     }
 
-    // ── Show Nearest Store Card ──────────────
+
     private void showNearestStoreCard(
             StoreLocation store, Double distKm) {
 
@@ -286,7 +284,7 @@ public class MapActivity extends AppCompatActivity
                 .setVisibility(View.VISIBLE);
     }
 
-    // ── Draw Line to Nearest Store ───────────
+
     private void drawLineTo(double myLat, double myLng,
                             double storeLat,
                             double storeLng) {
@@ -298,7 +296,7 @@ public class MapActivity extends AppCompatActivity
                 .geodesic(true));
     }
 
-    // ── Haversine Distance Formula ───────────
+
     private double calculateDistance(
             double lat1, double lng1,
             double lat2, double lng2) {
@@ -315,7 +313,7 @@ public class MapActivity extends AppCompatActivity
         return R * c;
     }
 
-    // ── Permission Result ────────────────────
+
     @Override
     public void onRequestPermissionsResult(
             int requestCode,
@@ -345,7 +343,7 @@ public class MapActivity extends AppCompatActivity
         return true;
     }
 
-    // ── Store Location Data Class ────────────
+
     static class StoreLocation {
         String name, address;
         double lat, lng;

@@ -35,7 +35,6 @@ public class HomeFragment extends Fragment
     private CartDatabase cartDb;
     private ProductAdapter adapter;
 
-    // Two lists — allProducts is never filtered
     private List<Product> allProducts = new ArrayList<>();
     private List<Product> productList = new ArrayList<>();
 
@@ -64,7 +63,6 @@ public class HomeFragment extends Fragment
         binding.swipeRefresh.setOnRefreshListener(this::loadProducts);
     }
 
-    // ── Setup RecyclerView ───────────────────
     private void setupRecyclerViews() {
         adapter = new ProductAdapter(
                 requireContext(), productList, this);
@@ -73,7 +71,6 @@ public class HomeFragment extends Fragment
         binding.rvProducts.setAdapter(adapter);
     }
 
-    // ── Load Products from Firestore ─────────
     private void loadProducts() {
         binding.swipeRefresh.setRefreshing(true);
 
@@ -97,12 +94,12 @@ public class HomeFragment extends Fragment
                     adapter.notifyDataSetChanged();
                     binding.swipeRefresh.setRefreshing(false);
 
-                    // Setup sections after data is ready
+
                     setupCategoryChips();
                     loadFeaturedProducts();
                     showMainSections();
 
-                    // Reapply search if user typed during refresh
+
                     String q = binding.etSearch
                             .getText().toString().trim();
                     if (!q.isEmpty()) filterProducts(q);
@@ -115,10 +112,10 @@ public class HomeFragment extends Fragment
                 });
     }
 
-    // ── Setup Category Chips ─────────────────
+
     private void setupCategoryChips() {
 
-        // Collect unique categories from products
+
         List<String> categories = new ArrayList<>();
         for (Product p : allProducts) {
             if (p.getCategory() != null
@@ -128,28 +125,28 @@ public class HomeFragment extends Fragment
             }
         }
 
-        // Remove all chips except "All" (index 0)
+
         int count = binding.chipGroupCategories.getChildCount();
         if (count > 1) {
             binding.chipGroupCategories.removeViews(1, count - 1);
         }
 
-        // Add a chip for each category
+
         for (String category : categories) {
             Chip chip = new Chip(requireContext());
             chip.setText(category);
             chip.setCheckable(true);
             chip.setChecked(false);
 
-            // ✅ Get color from your colors.xml directly
+
             int purple = requireContext().getColor(R.color.purple_700);
 
-            // Outline chip style
+
             chip.setChipStrokeWidth(2f);
             chip.setChipStrokeColor(
                     android.content.res.ColorStateList.valueOf(purple));
 
-            // Transparent background
+
             chip.setChipBackgroundColor(
                     android.content.res.ColorStateList.valueOf(
                             android.graphics.Color.TRANSPARENT));
@@ -157,7 +154,7 @@ public class HomeFragment extends Fragment
             binding.chipGroupCategories.addView(chip);
         }
 
-        // Handle chip selection
+
         binding.chipGroupCategories
                 .setOnCheckedStateChangeListener(
                         (group, checkedIds) -> {
@@ -182,12 +179,12 @@ public class HomeFragment extends Fragment
                             }
                         });
 
-        // Show categories section
+
         binding.tvCategories.setVisibility(View.VISIBLE);
         binding.categoryScrollView.setVisibility(View.VISIBLE);
     }
 
-    // ── Filter by Category ───────────────────
+
     private void filterByCategory(String category) {
         List<Product> filtered = new ArrayList<>();
         for (Product p : allProducts) {
@@ -206,7 +203,7 @@ public class HomeFragment extends Fragment
         }
     }
 
-    // ── Load Featured Products ───────────────
+
     private void loadFeaturedProducts() {
         List<Product> featured = new ArrayList<>();
         for (Product p : allProducts) {
@@ -233,14 +230,14 @@ public class HomeFragment extends Fragment
         }
     }
 
-    // ── Show All Main Sections ───────────────
+
     private void showMainSections() {
         binding.tvAllProducts.setVisibility(View.VISIBLE);
         binding.tvNoResults.setVisibility(View.GONE);
         binding.rvProducts.setVisibility(View.VISIBLE);
     }
 
-    // ── Search Setup ─────────────────────────
+
     private void setupSearch() {
         binding.etSearch.addTextChangedListener(
                 new TextWatcher() {
@@ -259,7 +256,7 @@ public class HomeFragment extends Fragment
                 });
     }
 
-    // ── Filter Products by Search ────────────
+
     private void filterProducts(String query) {
         String trimmed = query.trim();
 
@@ -281,13 +278,13 @@ public class HomeFragment extends Fragment
             return;
         }
 
-        // Hide sections when searching
+
         binding.tvCategories.setVisibility(View.GONE);
         binding.categoryScrollView.setVisibility(View.GONE);
         binding.tvFeatured.setVisibility(View.GONE);
         binding.rvFeatured.setVisibility(View.GONE);
 
-        // Search in name, category and description
+
         String lower = trimmed.toLowerCase();
         List<Product> filtered = new ArrayList<>();
 
@@ -320,7 +317,6 @@ public class HomeFragment extends Fragment
         }
     }
 
-    // ── Add to Cart ──────────────────────────
     @Override
     public void onAddToCart(Product product) {
         Executors.newSingleThreadExecutor().execute(() -> {

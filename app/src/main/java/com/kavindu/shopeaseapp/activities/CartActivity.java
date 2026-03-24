@@ -37,7 +37,7 @@ public class CartActivity extends AppCompatActivity
         cartDb  = CartDatabase.getInstance(this);
         adapter = new CartAdapter(this, cartItems, this);
 
-        // ✅ This was missing — causes blank RecyclerView
+
         binding.rvCart.setLayoutManager(new LinearLayoutManager(this));
         binding.rvCart.setAdapter(adapter);
 

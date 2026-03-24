@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Image + Badges -->
+        <!-- Image  Badges -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="150dp">
@@ -86,7 +86,7 @@
                 android:stepSize="0.5"
                 android:isIndicator="true"/>
 
-            <!-- ✅ Price -->
+            <!-- Price -->
             <TextView
                 android:id="@+id/tvPrice"
                 android:layout_width="match_parent"
@@ -96,7 +96,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"/>
 
-            <!-- ✅ Add to Cart Button — full width below price -->
+            <!-- Add to Cart Button — full width below price -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAddToCart"
                 android:layout_width="match_parent"

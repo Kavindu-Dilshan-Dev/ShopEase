@@ -53,34 +53,34 @@ public class CartAdapter extends
 
         CartItem item = items.get(pos);
 
-        // ✅ Set product name
+        //Set product name
         h.tvName.setText(item.getProductName());
 
-        // ✅ Unit price — e.g. "LKR 1,299.00 each"
+        //Unit price
         h.tvUnitPrice.setText(
                 String.format("LKR %.2f each", item.getPrice()));
 
-        // ✅ Quantity
+        // Quantity
         h.tvQuantity.setText(
                 String.valueOf(item.getQuantity()));
 
-        // ✅ Total price — unit price × quantity
+        // Total price
         h.tvTotalPrice.setText(
                 String.format("LKR %.2f", item.getTotalPrice()));
 
-        // ✅ Load image
+        // Load image
         Glide.with(context)
                 .load(item.getProductImage())
                 .placeholder(R.drawable.placeholder_product)
                 .centerCrop()
                 .into(h.ivProduct);
 
-        // ✅ Plus — increase quantity
+        // Plus
         h.btnPlus.setOnClickListener(v ->
                 listener.onQuantityChanged(
                         item, item.getQuantity() + 1));
 
-        // ✅ Minus — decrease quantity minimum 1
+        // Minus
         h.btnMinus.setOnClickListener(v -> {
             if (item.getQuantity() > 1) {
                 listener.onQuantityChanged(
@@ -88,7 +88,7 @@ public class CartAdapter extends
             }
         });
 
-        // ✅ Delete button
+        // Delete
         h.btnDelete.setOnClickListener(v ->
                 listener.onRemove(item));
     }
@@ -98,7 +98,7 @@ public class CartAdapter extends
         return items.size();
     }
 
-    // ── ViewHolder ───────────────────────────
+
     static class CartViewHolder extends RecyclerView.ViewHolder {
 
         ImageView      ivProduct;

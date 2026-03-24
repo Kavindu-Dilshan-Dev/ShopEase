@@ -36,7 +36,7 @@ public class SensorsActivity extends AppCompatActivity implements SensorHelper.S
         for (String s : sensors) sb.append("• ").append(s).append("\n");
         binding.tvSensorList.setText(sb.toString());
 
-        // Telephony
+        // Telephone
         binding.tvNetworkOperator.setText("Network: " +
                 TelephonyHelper.getNetworkOperator(this));
         binding.btnCallSupport.setOnClickListener(v -> TelephonyHelper.dialSupport(this));

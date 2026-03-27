@@ -110,7 +110,7 @@ public class CartAdapter extends
         CartViewHolder(@NonNull View v) {
             super(v);
 
-            // ✅ All IDs match item_cart.xml exactly
+            // All IDs match item_cart.xml exactly
             ivProduct    = v.findViewById(R.id.ivProduct);
             tvName       = v.findViewById(R.id.tvProductName);
             tvUnitPrice  = v.findViewById(R.id.tvUnitPrice);
